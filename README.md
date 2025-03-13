@@ -1,32 +1,31 @@
-# Telegram Bot на Java
+# Telegram Bot in Java
 
-Простий Telegram бот на Java з використанням Spring Boot, який демонструє реалізацію меню з двома рівнями вкладеності.
-Посилання на Telegram бот - @GarageRacerTABot
+A simple Telegram bot built with Java and Spring Boot, demonstrating the implementation of a menu with two nested levels. Link to the Telegram bot - @GarageRacerTABot
 
-## Опис проекту
+## Project Description
 
-Цей проект є реалізацією тестового завдання для створення Telegram-бота на Java. Бот має два рівні меню, які дозволяють користувачеві взаємодіяти з ним за допомогою кнопок.
+This project implements a test assignment to create a Telegram bot in Java. The bot features two menu levels that allow users to interact with it using buttons.
 
-### Функціональність
+### Functionality
 
-- Команда `/start` викликає головне меню (Меню 1)
-- Меню 1:
-  - Кнопка 1: при натисканні бот надсилає повідомлення "Кнопка 1"
-  - Кнопка 2: при натисканні бот надсилає повідомлення "Кнопка 2"
-  - Кнопка "Далі": перехід до Меню 2
-- Меню 2:
-  - Кнопка 1: при натисканні бот надсилає повідомлення "Кнопка 1"
-  - Кнопка 2: при натисканні бот надсилає повідомлення "Кнопка 2"
-  - Кнопка "Назад": повернення до Меню 1
+* The `/start` command brings up the main menu (Menu 1)
+* Menu 1:
+   * Button 1: when pressed, the bot sends a message "Button 1"
+   * Button 2: when pressed, the bot sends a message "Button 2"
+   * "Next" button: transitions to Menu 2
+* Menu 2:
+   * Button 1: when pressed, the bot sends a message "Button 1"
+   * Button 2: when pressed, the bot sends a message "Button 2"
+   * "Back" button: returns to Menu 1
 
-## Технології
+## Technologies
 
-- Java 8+
-- Spring Boot
-- Telegram Bot API (telegrambots-spring-boot-starter)
-- Lombok для зменшення шаблонного коду
+* Java 8+
+* Spring Boot
+* Telegram Bot API (telegrambots-spring-boot-starter)
+* Lombok for reducing boilerplate code
 
-## Структура проекту
+## Project Structure
 
 ```
 src/
@@ -45,28 +44,28 @@ src/
 │       └── application.properties
 ```
 
-## Запуск проекту
+## Running the Project
 
-### Через IDE
+### Through an IDE
 
-1. Відкрийте проект у вашій IDE (IntelliJ IDEA, Eclipse тощо)
-2. Запустіть клас `TelegramBotApplication`
-3. Користуйтесь ботом у Телеграм
+1. Open the project in your IDE (IntelliJ IDEA, Eclipse, etc.)
+2. Run the `TelegramBotApplication` class
+3. Use the bot in Telegram
 
-### Через Maven
+### Using Maven
 
-```bash
+```
 mvn spring-boot:run
 ```
 
-## Особливості реалізації
+## Implementation Features
 
-- Використовується Spring Boot для управління залежностями та конфігурацією
-- Бот реалізує інтерфейс `TelegramLongPollingBot`
-- Для зберігання стану меню кожного користувача використовується `Map<Long, String>`
-- Код структурований для мінімізації дублювання (DRY принцип)
-- Наявне логування дій користувача
+* Uses Spring Boot for dependency management and configuration
+* The bot implements the `TelegramLongPollingBot` interface
+* A `Map<Long, String>` is used to store the menu state for each user
+* Code is structured to minimize duplication (DRY principle)
+* User actions are logged
 
-## Автор
+## Author
 
-Нікіта Бойко (telegram - @nikitaa211)
+Nikita Boiko (telegram - @nikitaa211).
