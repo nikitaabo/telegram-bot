@@ -67,7 +67,6 @@ public class HelloWorldBot extends TelegramLongPollingBot {
                         sendTextMessage(chatId, BUTTON_1);
                         log.info("Користувач {} пнатиснув на кнопку 1",
                                 update.getMessage().getChat().getUserName());
-
                         break;
                     case BUTTON_2:
                         sendTextMessage(chatId, BUTTON_2);
