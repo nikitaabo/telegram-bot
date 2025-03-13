@@ -66,6 +66,8 @@ mvn spring-boot:run
 * Code is structured to minimize duplication (DRY principle)
 * User actions are logged
 
+Note: I would also like to point out that I store data such as the bot username and token in this project in the application.properties file. I know that it is better to store such data in the .env file, but for the simplicity of checking this task, I store it directly in the application.properties file.
+
 ## Author
 
 Nikita Boiko (telegram - @nikitaa211).
