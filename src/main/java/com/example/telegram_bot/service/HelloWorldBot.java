@@ -20,6 +20,13 @@ import java.util.Map;
 @Configuration
 @Slf4j
 public class HelloWorldBot extends TelegramLongPollingBot {
+    private static final String MENU_1 = "Меню 1";
+    private static final String MENU_2 = "Меню 2";
+    private static final String START_COMMAND = "/start";
+    private static final String BUTTON_1 = "Кнопка 1";
+    private static final String BUTTON_2 = "Кнопка 2";
+    private static final String NEXT = "Далі";
+    private static final String BACK = "Назад";
     private final String botToken;
     private final String botUserName;
     private final Map<Long, String> userMenuState = new HashMap<>();
@@ -40,8 +47,6 @@ public class HelloWorldBot extends TelegramLongPollingBot {
         return botToken;
     }
 
-
-
     @Override
     public void onUpdateReceived(Update update) {
         if (update.hasMessage() && update.getMessage().hasText()) {
@@ -50,43 +55,42 @@ public class HelloWorldBot extends TelegramLongPollingBot {
 
             try {
                 switch (messageText) {
-                    case "/start":
+                    case START_COMMAND:
                         sendOnStartCommand(update.getMessage().getChat().getUserName()
-                                ,chatId);
-                        sendMenu(chatId, "Меню 1");
-                        userMenuState.put(chatId, "Меню 1");
+                                , chatId);
+                        sendMenu(chatId, MENU_1);
+                        userMenuState.put(chatId, MENU_1);
                         log.info("Користувач {} перейшов на меню 1",
-                                update.getMessage().getChat().getUserName() );
+                                update.getMessage().getChat().getUserName());
                         break;
-                    case "Кнопка 1":
-                        sendTextMessage(chatId, "Кнопка 1");
+                    case BUTTON_1:
+                        sendTextMessage(chatId, BUTTON_1);
                         log.info("Користувач {} пнатиснув на кнопку 1",
-                                update.getMessage().getChat().getUserName() );
+                                update.getMessage().getChat().getUserName());
 
                         break;
-                    case "Кнопка 2":
-                        sendTextMessage(chatId, "Кнопка 2");
+                    case BUTTON_2:
+                        sendTextMessage(chatId, BUTTON_2);
                         log.info("Користувач {} пнатиснув на кнопку 2",
-                                update.getMessage().getChat().getUserName() );
+                                update.getMessage().getChat().getUserName());
                         break;
-                    case "Далі":
-                        sendMenu(chatId, "Меню 2");
-                        userMenuState.put(chatId, "Меню 2");
+                    case NEXT:
+                        sendMenu(chatId, MENU_2);
+                        userMenuState.put(chatId, MENU_2);
                         log.info("Користувач {} перейшов на меню 2",
-                                update.getMessage().getChat().getUserName() );
+                                update.getMessage().getChat().getUserName());
                         break;
-                    case "Назад":
-                        sendMenu(chatId, "Меню 1");
-                        userMenuState.put(chatId, "Меню 1");
+                    case BACK:
+                        sendMenu(chatId, MENU_1);
+                        userMenuState.put(chatId, MENU_1);
                         log.info("Користувач {} перейшов на меню 1",
-                                update.getMessage().getChat().getUserName() );
+                                update.getMessage().getChat().getUserName());
                         break;
                     default:
                         sendTextMessage(chatId, "Невідома команда. "
                                 + "Використайте /start для відображення меню.");
                         log.info("Користувач {} ввів невідому команду",
-                                update.getMessage().getChat().getUserName() );
-
+                                update.getMessage().getChat().getUserName());
                 }
             } catch (TelegramApiException e) {
                 throw new HelloWorldBotInitException("There was an error during "
@@ -109,6 +113,7 @@ public class HelloWorldBot extends TelegramLongPollingBot {
         log.info("Sending a message, message: {}.", message);
         sendTextMessage(chatId, message);
     }
+
     private void sendTextMessage(long chatId, String text) throws TelegramApiException {
         SendMessage message = new SendMessage();
         message.setChatId(String.valueOf(chatId));
@@ -116,9 +121,9 @@ public class HelloWorldBot extends TelegramLongPollingBot {
 
         if (userMenuState.containsKey(chatId)) {
             String menuState = userMenuState.get(chatId);
-            if ("Меню 1".equals(menuState)) {
+            if (MENU_1.equals(menuState)) {
                 message.setReplyMarkup(getMenuKeyboard(menuState));
-            } else if ("Меню 2".equals(menuState)) {
+            } else if (MENU_2.equals(menuState)) {
                 message.setReplyMarkup(getMenuKeyboard(menuState));
             }
         }
@@ -139,15 +144,14 @@ public class HelloWorldBot extends TelegramLongPollingBot {
         List<KeyboardRow> keyboard = new ArrayList<>();
 
         KeyboardRow row1 = new KeyboardRow();
-        row1.add(new KeyboardButton("Кнопка 1"));
-        row1.add(new KeyboardButton("Кнопка 2"));
+        row1.add(new KeyboardButton(BUTTON_1));
+        row1.add(new KeyboardButton(BUTTON_2));
 
         KeyboardRow row2 = new KeyboardRow();
-        if ("Меню 1".equals(menuName)) {
-            row2.add(new KeyboardButton("Далі"));
-        } else if ("Меню 2".equals(menuName)) {
-            row2.add(new KeyboardButton("Назад"));
-
+        if (MENU_1.equals(menuName)) {
+            row2.add(new KeyboardButton(NEXT));
+        } else if (MENU_2.equals(menuName)) {
+            row2.add(new KeyboardButton(BACK));
         }
         keyboard.add(row1);
         keyboard.add(row2);
